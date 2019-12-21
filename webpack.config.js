@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin"); // src index.html -> public index.html
 const WebpackPwaManifest = require("webpack-pwa-manifest");
+const { GenerateSW } = require("workbox-webpack-plugin"); // generate Service Worker
 
 module.exports = {
   entry: "./src/index.js",
@@ -36,6 +37,9 @@ module.exports = {
           sizes: [96, 128, 192, 256, 384, 512]
         }
       ]
+    }),
+    new GenerateSW({
+      include: [/\.html$/, /\.js$/] // public 안의 html, js를 캐싱을 태워라.
     })
   ]
 };
